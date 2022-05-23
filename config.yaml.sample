@@ -1,0 +1,27 @@
+config:
+  addr: ":9099"               # default
+  timezone: Europe/Amsterdam  # default: UTC
+  logformat: text             # or "json"
+windows:
+  # Each night, staging restores a DB, so yeah, it will be offline.
+  - name: staging restore     # Name of the maintenance window.
+    cron: "0 0 * * *"         # cron expression when maintenance window should 
+                              # start.
+    duration: 2h              # duration of the maintenance window.
+    labels:                   # Labels to add to the metric.
+      team: haxx0rz
+      service: UUID as a service
+      service_level: staging
+
+  # We don't want any alerts in the weekend regarding test.
+  - name: weekend 
+    cron: "0 16 * * 5"
+    duration: 64h
+    labels: {}
+
+  - name: testy mctestface
+    cron: "* * * * *"
+    duration: 30s
+    labels:
+      service_level: development
+
