@@ -148,10 +148,10 @@ func NewMaintenanceWindow(
 }
 
 func init() {
-	viper.SetConfigName("config")         // name of config file (without extension)
-	viper.AddConfigPath("/etc/appname/")  // path to look for the config file in
-	viper.AddConfigPath("$HOME/.appname") // call multiple times to add many search paths
-	viper.AddConfigPath(".")              // optionally look for config in the working directory
+	viper.SetConfigName("config")                      // name of config file (without extension)
+	viper.AddConfigPath("/etc/maintenance-exporter")   // path to look for the config file in
+	viper.AddConfigPath("$HOME/.maintenance-exporter") // call multiple times to add many search paths
+	viper.AddConfigPath(".")                           // optionally look for config in the working directory
 
 	viper.SetDefault("Config.Addr", ":9099")
 	viper.SetDefault("Config.Timezone", "UTC")
