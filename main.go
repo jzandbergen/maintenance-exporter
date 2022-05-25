@@ -215,10 +215,23 @@ func main() {
 	log.Printf("-----------------------------------------------")
 
 	log.Printf("Start serving metrics on %v/metrics", c.Config.Addr)
+	log.Printf("Start serving readiness on %v/readiness", c.Config.Addr)
+	log.Printf("Start serving liveness on %v/liveness", c.Config.Addr)
 
 	http.HandleFunc("/metrics", func(w http.ResponseWriter, req *http.Request) {
 		//TODO: make boolean toggleble from config
 		metrics.WritePrometheus(w, false)
 	})
+
+	http.HandleFunc("/liveness", func(w http.ResponseWriter, req *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintln(w, "I am alive, please don't kill me...")
+	})
+
+	http.HandleFunc("/readiness", func(w http.ResponseWriter, req *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintln(w, "I am ready, please send me some requests...")
+	})
+
 	http.ListenAndServe(c.Config.Addr, nil)
 }
