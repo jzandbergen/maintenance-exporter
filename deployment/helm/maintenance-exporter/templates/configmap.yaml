@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "maintenance-exporter.fullname" . }}
+  labels:
+    {{- include "maintenance-exporter.labels" . | nindent 4 }}
+data: 
+  config.yaml: |- {{- .Values.exporterYamlConfig | toYaml | nindent 4 }}
