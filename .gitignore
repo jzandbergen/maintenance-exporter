@@ -1,2 +1,3 @@
 /maintenance-exporter
 config.yaml
+*.tgz
