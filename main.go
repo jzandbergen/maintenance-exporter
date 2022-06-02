@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/VictoriaMetrics/metrics"
+	"github.com/fsnotify/fsnotify"
 	"github.com/go-co-op/gocron"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -142,6 +143,7 @@ func NewMaintenanceWindow(
 	}
 
 	m.Job, err = s.Cron(c).Do(m.Task)
+	m.Job.SingletonMode()
 
 	return &m, err
 
@@ -166,6 +168,12 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// TODO: Add logic to gracefully reload the service.
+	viper.OnConfigChange(func(e fsnotify.Event) {
+		fmt.Println("Config file changed:", e.Name)
+	})
+	viper.WatchConfig()
 
 	if c.Config.LogFormat == "json" {
 		log.SetFormatter(&log.JSONFormatter{})

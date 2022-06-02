@@ -9,10 +9,12 @@ require (
 	github.com/spf13/viper v1.11.0
 )
 
-require github.com/VictoriaMetrics/metrics v1.18.1
+require (
+	github.com/VictoriaMetrics/metrics v1.18.1
+	github.com/fsnotify/fsnotify v1.5.1
+)
 
 require (
-	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
